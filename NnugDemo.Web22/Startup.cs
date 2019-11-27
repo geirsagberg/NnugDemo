@@ -1,12 +1,11 @@
-using System;
-using System.Text.Json;
+﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using NnugDemo.Web.Data;
 
-namespace NnugDemo.Web
+namespace NnugDemo.Web22
 {
     public class Startup
     {
@@ -14,32 +13,22 @@ namespace NnugDemo.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
-            services.AddControllers();
-            services.AddDbContext<LibraryContext>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseStaticFiles();
-
-            app.UseRouting();
 
             app.Use((context, next) => {
-                Console.WriteLine("RouteValues: " + JsonSerializer.Serialize(context.Request.RouteValues));
+                Console.WriteLine(context.GetRouteData());
                 return next();
             });
 
-            app.UseEndpoints(endpoints => {
-                endpoints.MapControllers();
-                endpoints.MapRazorPages();
-                endpoints.MapBlazorHub();
-            });
+            app.Run(async (context) => { await context.Response.WriteAsync("Hello World!"); });
         }
     }
 }

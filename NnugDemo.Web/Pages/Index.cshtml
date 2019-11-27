@@ -1,0 +1,24 @@
+@page
+@model NnugDemo.Web.Pages.Index
+@using NnugDemo.Web.Components
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+  Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>NNUG</title>
+</head>
+<body>
+  <div>
+    Hello NNUG!
+  </div>
+  <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+  <script src="_framework/blazor.server.js"></script>
+</body>
+</html>
