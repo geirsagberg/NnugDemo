@@ -3,14 +3,14 @@
 
 @if (Books == null)
 {
-  <p>Loading...</p>
+  <p>Loading....</p>
 }
 else
 {
   <ul>
     @foreach (var book in Books)
     {
-      <li>@book.Author?.FullName - @book.Title</li>
+      <BookItem Book="book" />
     }
   </ul>
   <button @onclick="() => LoadMoreBooks()">Load more</button>
@@ -26,14 +26,16 @@ else
   public async Task LoadMoreBooks()
   {
     if (Books == null) return;
-    var moreBooks = await LibraryContext.Books.Include(b => b.Author).Skip(Books.Count).Take(2).ToListAsync();
+    var moreBooks = await LibraryContext.Books.Include(b => b.Author)
+      .Skip(Books.Count).Take(2).ToListAsync();
     Books.AddRange(moreBooks);
   }
 
   protected override async Task OnInitializedAsync()
   {
     await Task.Delay(1000);
-    Books = await LibraryContext.Books.Include(b => b.Author).Take(2).ToListAsync();
+    Books = await LibraryContext.Books.Include(b => b.Author)
+      .Take(2).ToListAsync();
   }
 
 }

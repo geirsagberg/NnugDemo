@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NnugDemo.BlazorServer", "Nn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NnugDemo.BlazorWasm", "NnugDemo.BlazorWasm\NnugDemo.BlazorWasm.csproj", "{83C5D0B0-2CC0-4D23-AD5F-D220DBD155E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NnugDemo.Grpc", "NnugDemo.Grpc\NnugDemo.Grpc.csproj", "{4FDA2A88-D60E-4B6A-8501-E716EE780059}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NnugDemo.Grpc", "NnugDemo.Grpc\NnugDemo.Grpc.csproj", "{4FDA2A88-D60E-4B6A-8501-E716EE780059}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NnugDemo.GrpcClient", "NnugDemo.GrpcClient\NnugDemo.GrpcClient.csproj", "{047C2E52-C0D6-45BC-82C9-3B74A5789487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NnugDemo.GrpcClient", "NnugDemo.GrpcClient\NnugDemo.GrpcClient.csproj", "{047C2E52-C0D6-45BC-82C9-3B74A5789487}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

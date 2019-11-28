@@ -5,15 +5,14 @@ using NnugDemo.Grpc;
 
 namespace NnugDemo.GrpcClient
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main()
         {
-            // The port number(5001) must match the port of the gRPC server.
+            // The port number must match the port of the gRPC server.
             var channel = GrpcChannel.ForAddress("https://localhost:5002");
-            var client =  new Greeter.GreeterClient(channel);
-            var reply = await client.SayHelloAsync(
-                new HelloRequest { Name = "GreeterClient" });
+            var client = new Greeter.GreeterClient(channel);
+            var reply = await client.SayHelloAsync(new HelloRequest {Name = "NNUG"});
             Console.WriteLine("Greeting: " + reply.Message);
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
