@@ -1,41 +1,26 @@
-@using Microsoft.EntityFrameworkCore
 <h3>My Blazor Server App!</h3>
 
-@if (Books == null)
+<button @onclick="() => SelectedTab = Tab.Books">Books</button>
+<button @onclick="() => SelectedTab = Tab.JsCalculator">JsCalculator</button>
+<br />
+
+@switch (SelectedTab)
 {
-  <p>Loading....</p>
-}
-else
-{
-  <ul>
-    @foreach (var book in Books)
-    {
-      <BookItem Book="book" />
-    }
-  </ul>
-  <button @onclick="() => LoadMoreBooks()">Load more</button>
+  case Tab.Books:
+    <BookList></BookList>
+    break;
+  case Tab.JsCalculator:
+    <JsCalculator></JsCalculator>
+    break;
 }
 
 @code {
 
-  public List<Book>? Books { get; set; }
-
-  [Inject]
-  public LibraryContext LibraryContext { get; set; } = null!;
-
-  public async Task LoadMoreBooks()
+  enum Tab
   {
-    if (Books == null) return;
-    var moreBooks = await LibraryContext.Books.Include(b => b.Author)
-      .Skip(Books.Count).Take(2).ToListAsync();
-    Books.AddRange(moreBooks);
+    Books,
+    JsCalculator
   }
 
-  protected override async Task OnInitializedAsync()
-  {
-    await Task.Delay(1000);
-    Books = await LibraryContext.Books.Include(b => b.Author)
-      .Take(2).ToListAsync();
-  }
-
+  Tab SelectedTab { get; set; }
 }

@@ -1,0 +1,38 @@
+@using Microsoft.EntityFrameworkCore
+
+<h3>Books</h3>
+
+@if (Books == null)
+{
+  <p>Loading....</p>
+}
+else
+{
+  <ul>
+    @foreach (var book in Books)
+    {
+      <BookItem Book="book" />
+    }
+  </ul>
+  <button @onclick="LoadMoreBooks">Load more</button>
+}
+
+@code {
+  [Inject]
+  public LibraryContext LibraryContext { get; set; } = null!;
+  public List<Book>? Books { get; set; }
+  public async Task LoadMoreBooks()
+  {
+    if (Books == null) return;
+    var moreBooks = await LibraryContext.Books.Include(b => b.Author)
+      .Skip(Books.Count).Take(2).ToListAsync();
+    Books.AddRange(moreBooks);
+  }
+
+  protected override async Task OnInitializedAsync()
+  {
+    await Task.Delay(1000);
+    Books = await LibraryContext.Books.Include(b => b.Author)
+      .Take(2).ToListAsync();
+  }
+}

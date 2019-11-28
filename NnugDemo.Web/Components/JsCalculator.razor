@@ -1,0 +1,27 @@
+<h3>JsCalculator</h3>
+
+
+<input @bind="@NumberA" type="number" />
+<span>+</span>
+<input @bind="@NumberB" type="number" />
+<button @onclick="AddNumbers">Add numbers using JS</button>
+<div>Result: @Sum</div>
+
+@code {
+    
+  [Inject]
+  public IJSRuntime JSRuntime { get; set; } = null!;
+
+  public int NumberA { get; set; }
+
+  public int NumberB { get; set; }
+
+  public int Sum { get; set; }
+
+  public async Task AddNumbers()
+  {
+    Sum = await JSRuntime.InvokeAsync<int>("add", NumberA, NumberB);
+  }
+
+
+}
